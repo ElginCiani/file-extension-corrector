@@ -16,11 +16,10 @@ def parse_args():
     run with: '{Python Path} checkext.py [options]'\n\n
     Tool created by: Elgin Ciani
     """,
-    version="%prog 1.0")
+    version="%prog 1.1")
 
   #Available command line arguments
   parser.add_option("-t", "--type", dest="type", action="append", type="string", help="File type(s) to check for. Comma delimited (e.g. -t jpg,png). Input * for all.")
-  parser.add_option("-c", "--count", dest="count", action="store_true",  default=False, help="Counts the number of files with incorrect extension.")
   parser.add_option("-d", "--delete", dest="delete", action="store_true", default=False, help="Delete file if the extension does not match true file type.")
   parser.add_option("-f", "--fix", dest="fix", action="store_true", default=False, help="Rename file extension if it does not match true file type.")
   parser.add_option("-r", "--recursive", dest="recursive", action="store_true", default=False, help="Check files in subdirectories as well.")
@@ -40,8 +39,6 @@ def parse_args():
     parser.error("[-] Do not set --type and --rename flags simultaneously.")
   elif options.delete and options.fix:
     parser.error("[-] Do not set --delete and --fix flags simultaneously.")
-  elif options.quiet and options.count:
-    parser.error("[-] Do not set --quiet and --count flags simultaneously.")
   elif options.quiet and options.verbose:
     parser.error("[-] Do not set --quiet and --verbose flags simultaneously.")
   ## End: Error scenarios ##
@@ -76,7 +73,6 @@ def main():
             print("Checking dir:", dir)
       else: #Prevent descending into subfolders
         break
-    if options.count:
       print("Renamed", count, "files.")
     return
 
@@ -90,7 +86,8 @@ def main():
       filepath = root+"\\"+filename
       kind = filetype.guess(filepath)
       if kind is None:
-        print('Cannot guess file type!')
+        if options.verbose:
+          print('Cannot guess file type!')
         continue
       else:
         if options.verbose:
@@ -99,7 +96,7 @@ def main():
         if '*' in types or kind.extension in types:
           split_tup = os.path.splitext(filepath)
           if kind.extension != split_tup[1][1:].lower(): #File extension is wrong
-            if options.verbose:
+            if not options.quiet:
               print(filename, "has wrong extension.")
             if options.delete:
               if options.verbose:
@@ -117,17 +114,17 @@ def main():
     else: #Prevent descending into subfolders
       break          
 
-  if options.count and options.delete:
+  if options.delete and not options.quiet:
     print(count, "files with wrong extension deleted.")
-    if num_unknown > 0:
+    if num_unknown > 0 and not options.quiet:
       print(num_unknown, "files found with unknown extensions.")
-  elif options.count and options.fix:
+  elif options.fix and not options.quiet:
     print(count, "files with wrong extension fixed.")
-    if num_unknown > 0:
+    if num_unknown > 0 and not options.quiet:
       print(num_unknown, "files found with unknown extensions.")
-  elif options.count:
+  elif not options.quiet:
     print(count, "files found with wrong extension.")
-    if num_unknown > 0:
+    if num_unknown > 0 and not options.quiet:
       print(num_unknown, "files found with unknown extensions.")
 ########## END MAIN ##########
 
