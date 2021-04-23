@@ -27,6 +27,8 @@ Examples:
 
 `{Python Path} checkext.py -t jpg,png -r` checks all files of actual type jpeg or png including those in subfolders.
 
+*****
+
 Note: Requires filetype.py
 Use `pip install filetype`
 
