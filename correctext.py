@@ -14,10 +14,10 @@ def parse_args():
   parser = optparse.OptionParser(
     """
     This software is provided \"AS IS\", without warranty of any kind.\n
-    'checkext' is a tool used to make sure that files really are
+    'correctext' is a tool used to make sure that files really are
     what their extensions say they are.
 
-    run with: '{Python Path} checkext.py [options]'\n\n
+    run with: '{Python Path} correctext.py [options]'\n\n
     Tool created by: Elgin Ciani
     """,
     version="%prog 1.2")
