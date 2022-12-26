@@ -1,7 +1,7 @@
-# file-extension-checker
+# file-extension-corrector
 A tool used to make sure that files really are what their extensions say they are.
 
-Run with: `{Python Path} checkext.py [options]`
+Run with: `{Python Path} correctext.py [options]`
 
 *****
 
@@ -13,9 +13,9 @@ Required flags: --type (-t) or --rename (-R)
 
 Examples:
 
-`{Python Path} checkext.py -t *` checks every file
+`{Python Path} correctext.py -t *` checks every file
 
-`{Python Path} checkext.py -t jpg,png` checks all files of actual type jpeg or png
+`{Python Path} correctext.py -t jpg,png` checks all files of actual type jpeg or png
 
 *****
 
@@ -23,9 +23,9 @@ Examples:
 
 Examples:
 
-`{Python Path} checkext.py -t * -r` checks every file including those in subfolders.
+`{Python Path} correctext.py -t * -r` checks every file including those in subfolders.
 
-`{Python Path} checkext.py -t jpg,png -r` checks all files of actual type jpeg or png including those in subfolders.
+`{Python Path} correctext.py -t jpg,png -r` checks all files of actual type jpeg or png including those in subfolders.
 
 *****
 
